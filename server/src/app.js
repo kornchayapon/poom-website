@@ -1,40 +1,35 @@
 let express = require('express')
+let bodyParser = require('body-parser')
 
+const {sequelize} = require('./models')
+
+const config = require('./config/config')
 const app = express()
 
-let port = 8080
+let port = process.env.PORT || config.port
+
+require('./routes')(app)
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/status', function (req, res) {
   res.send('Hello nodejs server')
 })
 
-// user section
-// create
-app.post('/user', function (req, res) {
-  res.send('OK I created user')
-})
 
-// update user
-app.put('/user/:userId', function (req, res) {
-  res.send('OK I updated user')
-})
-
-// delete user
-app.delete('/user/:userId', function (req, res) {
-  res.send('OK I deleted user')
-})
-
-// view all user
-app.get('/users', function (req, res) {
-  res.send('get all user')
-})
-
-// view user
-app.get('/user/:userId', function (req, res) {
-  res.send('get user by id')
+sequelize.sync({force: false}).then( () => {
+  app.listen(port, function () {
+    console.log('server running on ' + port)
+  })
 })
 
 
-app.listen(port, function () {
-  console.log('server running on ' + port)
-})
+
+
+
+
+
+
+
+
