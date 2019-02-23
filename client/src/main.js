@@ -3,8 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueResource from 'vue-resource'
+
+import BackHeader from '@/components/Header'
 
 Vue.config.productionTip = false
+
+Vue.use(VueResource)
+
+Vue.component('back-header', BackHeader)
 
 /* eslint-disable no-new */
 new Vue({
