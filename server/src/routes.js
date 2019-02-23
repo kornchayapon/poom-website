@@ -3,7 +3,7 @@ const UserController = require('./controllers/UserController')
 module.exports = (app) => {
   // user section
   // create
-  app.post('/user', 
+  app.post('/user',
     UserController.create
   )
 
